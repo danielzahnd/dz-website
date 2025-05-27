@@ -50,8 +50,8 @@ main {
   transition: background-color 0.3s, color 0.3s;
 }
 
-.tag:hover {
-  background-color: #d6e0f5;
-  color: #000;
-  cursor: pointer;
+.figure-img {
+  width: 60%;      /* scales to fit container */
+  max-width: 600px; /* limits size */
+  height: auto;     /* keeps aspect ratio */
 }
