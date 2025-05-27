@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Newcomb-Benford Law</title>
+  <link rel="stylesheet" href="../utils/style.css"/>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Newcomb-Benford Law</h1>
+    <nav>
+      <a href="../index.html">Home</a>
+    </nav>
+  </header>
+
+  <main>
+    <p class="meta">Posted on May 27, 2025</p>
+    <article>
+      <nav>
+        <ul>
+          <li><a href="#origin">Origin of the Law</a></li>
+          <li><a href="#formula">Mathematical Formula</a></li>
+          <li><a href="#examples">Examples</a></li>
+          <li><a href="#applications">Applications</a></li>
+          <li><a href="#limitations">Limitations</a></li>
+        </ul>
+      </nav>
+
+      <section id="origin">
+        <h2>Origin of the Law</h2>
+        <p>In 1881, Simon Newcomb published a short note titled <em>Note on the Frequency of Use of the Different Digits in Natural Numbers</em>, where he noticed something curious while looking up logarithm tables.</p>
+
+        <p>He observed that the pages at the beginning—those with logarithms starting with digit 1—were more worn out than those towards the end. This implied that numbers beginning with digit 1 were used more frequently.</p>
+
+        <p>Frank Benford later rediscovered and formalized this observation in 1938, and the pattern became known as the <strong>Newcomb-Benford Law</strong>.</p>
+      </section>
+
+      <section id="formula">
+        <h2>Mathematical Formula</h2>
+        <p>The law states that in many naturally occurring datasets, the leading digit \( d \in \{1, \dots, 9\} \) occurs with probability:</p>
+
+        <p>\[
+        P(d) = \log_{10}\left(1 + \frac{1}{d}\right)
+        \]</p>
+      </section>
+
+      <section id="examples">
+        <h2>Examples</h2>
+        <p>Here are some of the probabilities predicted by the law:</p>
+        <ul>
+          <li>\( P(1) \approx 0.301 \)</li>
+          <li>\( P(2) \approx 0.176 \)</li>
+          <li>\( P(3) \approx 0.125 \)</li>
+          <li>... down to</li>
+          <li>\( P(9) \approx 0.046 \)</li>
+        </ul>
+
+        <figure>
+          <img src="benford-distribution.pdf" alt="Benford Law Digit Distribution" style="max-width:100%; height:auto;">
+          <figcaption>Figure: Distribution of leading digits according to Benford's Law.</figcaption>
+        </figure>
+      </section>
+
+      <section id="applications">
+        <h2>Applications</h2>
+        <p>The law has been confirmed in many datasets: electricity bills, stock prices, population figures, street addresses, death rates, river lengths, and more.</p>
+
+        <p>Benford’s Law is also used in forensic accounting and fraud detection. Fabricated data often fails to match this distribution, making it a useful tool for identifying anomalies.</p>
+      </section>
+
+      <section id="limitations">
+        <h2>Limitations</h2>
+        <p>Benford’s Law doesn’t apply to all datasets. For instance, phone numbers or fixed-range data sets do not follow the law. It is most reliable when the dataset spans several orders of magnitude and is not artificially bounded or rounded.</p>
+      </section>
+    </article>
+
+    <section>
+      <h3>Tags</h3>
+      <p>
+        <span class="tag">Mathematics</span>
+        <span class="tag">Statistics</span>
+        <span class="tag">Benford's Law</span>
+        <span class="tag">Forensics</span>
+        <span class="tag">History of Math</span>
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Daniel Zahnd</p>
+  </footer>
+</body>
+</html>
