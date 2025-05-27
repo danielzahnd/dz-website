@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Newcomb-Benford Law</title>
+  <title>The Newcomb-Benford law</title>
   <link rel="stylesheet" href="../../utils/style.css"/>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async
@@ -12,7 +12,7 @@
 </head>
 <body>
   <header>
-    <h1>Newcomb-Benford Law</h1>
+    <h1>The Newcomb-Benford law</h1>
     <nav>
       <a href="../../index.html">Home</a>
     </nav>
@@ -21,74 +21,65 @@
   <main>
     <p class="meta">Posted on May 27, 2025</p>
     <article>
-      <nav>
-        <ul>
-          <li><a href="#origin">Origin of the Law</a></li>
-          <li><a href="#formula">Mathematical Formula</a></li>
-          <li><a href="#examples">Examples</a></li>
-          <li><a href="#applications">Applications</a></li>
-          <li><a href="#limitations">Limitations</a></li>
-        </ul>
-      </nav>
-
-      <section id="origin">
-        <h2>Origin of the Law</h2>
-        <p>In 1881, Simon Newcomb published a short note titled <em>Note on the Frequency of Use of the Different Digits in Natural Numbers</em>, where he noticed something curious while looking up logarithm tables.</p>
-
-        <p>He observed that the pages at the beginning—those with logarithms starting with digit 1—were more worn out than those towards the end. This implied that numbers beginning with digit 1 were used more frequently.</p>
-
-        <p>Frank Benford later rediscovered and formalized this observation in 1938, and the pattern became known as the <strong>Newcomb-Benford Law</strong>.</p>
+      <section>
+        <h2>Abstract</h2>
+        <p>
+          The Benford law was actually discovered by Newcomb. He observed, that the pages in logarithm 
+          books containing tables for logarithms with number one were much dirtier than the pages with logarithms 
+          of higher numbers. He proposed that the first digit $1$ is much more likely to occur in a dataset spanning 
+          many orders of magnitude than a higher number larger than one. Benford rediscovered this law later 
+          on and formalized it. Only through Theodore Hill however, the Benford law came to be known by a greater 
+          mathematical community, because he applied Benford's distribution to solve real world problems.
+        </p>
+        <p>
+          Nowadays, Benford's law is used to detect frauds in various kinds of datasets. What is important to note 
+          here is that the law is only applicable to datasets spanning many orders of magnitude. The reason for 
+          this will become more clear with a heuristic derivation given below.
+        </p>
       </section>
 
-      <section id="formula">
-        <h2>Mathematical Formula</h2>
-        <p>The law states that in many naturally occurring datasets, the leading digit \( d \in \{1, \dots, 9\} \) occurs with probability:</p>
-
-        <p>\[
-        P(d) = \log_{10}\left(1 + \frac{1}{d}\right)
-        \]</p>
-      </section>
-
-      <section id="examples">
-        <h2>Examples</h2>
-        <p>Here are some of the probabilities predicted by the law:</p>
-        <ul>
-          <li>\( P(1) \approx 0.301 \)</li>
-          <li>\( P(2) \approx 0.176 \)</li>
-          <li>\( P(3) \approx 0.125 \)</li>
-          <li>... down to</li>
-          <li>\( P(9) \approx 0.046 \)</li>
-        </ul>
-
-        <figure>
-          <img src="benford-distribution.pdf" alt="Benford Law Digit Distribution" style="max-width:100%; height:auto;">
-          <figcaption>Figure: Distribution of leading digits according to Benford's Law.</figcaption>
-        </figure>
-      </section>
-
-      <section id="applications">
-        <h2>Applications</h2>
-        <p>The law has been confirmed in many datasets: electricity bills, stock prices, population figures, street addresses, death rates, river lengths, and more.</p>
-
-        <p>Benford’s Law is also used in forensic accounting and fraud detection. Fabricated data often fails to match this distribution, making it a useful tool for identifying anomalies.</p>
-      </section>
-
-      <section id="limitations">
-        <h2>Limitations</h2>
-        <p>Benford’s Law doesn’t apply to all datasets. For instance, phone numbers or fixed-range data sets do not follow the law. It is most reliable when the dataset spans several orders of magnitude and is not artificially bounded or rounded.</p>
+      <section>
+        <h2>Derivation</h2>
+        <p>
+          Benford's law can be derived from scale invariance. Let $p(x)$ denote the probability density for the mantissa $x$ of some number $z = x\cdot 10^k$ with $k \in \mathbb{Z}$ to be in the interval $[1,10]$. Scale invariance for $p(x)$ then means, that the probability $p(x)\,\mathrm{d}x$ of $x \in [x, \mathrm{d}x]$ is equal to the probability $p(\lambda x)\,\mathrm{d}(\lambda x)$ of $\lambda x \in [\lambda x, \mathrm{d}(\lambda x)]$ for the scaled probability density $p(\lambda x)$. From the normalization condition \begin{align}\begin{aligned}\label{eq:normalizationcondition}
+	\int_{1}^{10} p(x)\,\mathrm{d}x =& \int_{1}^{10} p(\lambda x)\,\mathrm{d}(\lambda x) \\ =& \lambda \int_{1}^{10} p(\lambda x)\,\mathrm{d}x \overset{!}{=} 1
+	\end{aligned}\end{align}
+of probability densities, the relation \begin{equation}
+	p(\lambda x) = \lambda^{-1}p(x)
+\end{equation} follows. Differentiation \begin{equation}
+\frac{\mathrm{d}}{\mathrm{d}\lambda} p(\lambda x) = x\frac{\mathrm{d}p(x)}{\mathrm{d}x}, \qquad \frac{\mathrm{d}}{\mathrm{d}\lambda}[\lambda^{-1}p(x)] = -\frac{1}{\lambda^2}p(x)
+\end{equation}
+of both sides of \cref{eq:normalizationcondition} leads to the differential equation \begin{equation}
+	x\frac{\mathrm{d}p(x)}{\mathrm{d}x} = -\frac{1}{\lambda^2}p(x),
+\end{equation} which can be solved by separation of variables. Dividing the differential equation by $x$ and $p(x)$ and furthermore integrating with respect to $x$ leads to \begin{equation}
+\int \frac{1}{p(x)}\frac{\mathrm{d}p(x)}{\mathrm{d}x}\,\mathrm{d}x = \int \frac{1}{p(x)}\,\mathrm{d}p(x) =  -\frac{1}{\lambda^2}\int \frac{1}{x}\,\mathrm{d}x.
+\end{equation} Performing the indefinite integrals, one obtains \begin{equation}
+\ln[p(x)] = -\frac{1}{\lambda^2}\ln(x) + c, \quad c \in \mathbb{R}.
+\end{equation} A this stage, one can set $\lambda =1$ and raise both sides of the equation to the power of Euler's number, which yields \begin{equation}
+p(x) = \tilde{c}\frac{1}{x},
+\end{equation} where $\tilde{c} = e^c$. This constant $\tilde{c}$ is given by the normalization condition $\int_{1}^{10}p(x)\,\mathrm{d}x\overset{!}{=}1$ as \begin{equation}
+\tilde{c}\int_{1}^{10}\frac{1}{x}\,\mathrm{d}x = \tilde{c}\ln(10) = 1 \quad \Leftrightarrow \quad \tilde{c} = \frac{1}{\ln(10)},
+\end{equation} hence the Benford probability density $p(x)$ is given by \begin{equation}
+p(x) = \frac{1}{\ln(10)}x^{-1}.
+\end{equation} The probability $P(d)$ that the first digit of a number $z = x\cdot 10^k$ is the integer $d \in \{1,2,\dots,9\}$ is therefore given by \begin{align}\begin{aligned}
+P(d) &= \int_{d}^{d+1}p(x)\,\mathrm{d}x = \frac{1}{\ln(10)}\int_{d}^{d+1}\frac{1}{x}\,\mathrm{d}x \\ &= \frac{1}{\ln(10)}[\ln(d+1)-\ln(d)] \\ &= \frac{1}{\ln(10)}\ln\left(1+\frac{1}{d}\right).
+\end{aligned}\end{align} Let $a$, $b$ and $c$ be numbers, such that $\log_a(c) = b$ is a well-defined expression. Then, $a^b = c$ holds and hence also $\log_b(a^b) = \log_b(c) = b\log_b(a)$ must hold. From this, the change of basis rule \begin{equation}
+\log_a(c) = \frac{\log_b(c)}{\log_b(a)}
+\end{equation} follows. Using this rule, one obtains $\ln(10)^{-1} = \log(e)$ and $\ln(1+1/d) = \log(1+1/d)/\log(e)$. Thus, the final expression \begin{equation}
+P(d) = \log\left(1 + \frac{1}{d}\right)
+\end{equation} for the Newcomb-Benford law is obtained. A dataset $Z \doteq \{z_1,\dots,z_n\}$ consisting of $n \in \mathbb{N}$ numbers is said to follow a Benford distribution, if \begin{equation}
+\frac{n_{d}}{n} \approx P(d) = \log\left(1+\frac{1}{d}\right)
+\end{equation} for all $d \in \{1,2,\dots,9\}$ holds, where $n_{d}$ is the number of elements in $Z$ with first digit $d \in \{1,2,\dots,9\}$.
+        </p>
+        <p>
+          Figure 1 shows the calculated values $P(d)$ following Benford's law.
+          <figure>
+            <img src="benford.pdf" alt="Benford's law">
+            <figcaption>Figure 1: Calculated values $P(d)$ for Benford's law.</figcaption>
+          </figure>
+        </p>
       </section>
     </article>
-
-    <section>
-      <h3>Tags</h3>
-      <p>
-        <span class="tag">Mathematics</span>
-        <span class="tag">Statistics</span>
-        <span class="tag">Benford's Law</span>
-        <span class="tag">Forensics</span>
-        <span class="tag">History of Math</span>
-      </p>
-    </section>
   </main>
 
   <footer>
