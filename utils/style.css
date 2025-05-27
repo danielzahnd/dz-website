@@ -19,6 +19,11 @@ nav a {
   text-decoration: none;
 }
 
+article p {
+  text-align: justify;
+  hyphens: auto;
+}
+
 main {
   max-width: 800px;
   margin: 2rem auto;
