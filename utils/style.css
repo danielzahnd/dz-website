@@ -68,3 +68,11 @@ figure {
   height: auto;
   display: block;
 }
+
+figcaption {
+  font-size: calc(100% - 3pt);
+}
+
+.figcaption-text {
+  font-weight: normal;
+}

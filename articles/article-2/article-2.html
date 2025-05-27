@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="../../utils/style.css"/>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
-  <!-- MathJax Configuration -->
   <script>
     window.MathJax = {
       tex: {
@@ -15,13 +14,8 @@
       }
     };
   </script>
-
-  <!-- MathJax Script -->
-  <script id="MathJax-script" async
-    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-
 
 <body>
   <header>
@@ -37,12 +31,12 @@
       <section>
         <h2>Abstract</h2>
         <p>
-          The Benford law was actually discovered by Newcomb. He observed, that the pages in logarithm 
+          The Benford law was actually discovered by Newcomb. He observed that the pages in logarithm 
           books containing tables for logarithms with number one were much dirtier than the pages with logarithms 
           of higher numbers. He proposed that the first digit $1$ is much more likely to occur in a dataset spanning 
           many orders of magnitude than a higher number larger than one. Benford rediscovered this law later 
-          on and formalized it. Only through Theodore Hill however, the Benford law came to be known by a greater 
-          mathematical community, because he applied Benford's distribution to solve real world problems.
+          on and formalized it. Only through Theodore Hill, however, the Benford law came to be known by a greater 
+          mathematical community, because he applied Benford's distribution to solve real-world problems.
         </p>
         <p>
           Nowadays, Benford's law is used to detect frauds in various kinds of datasets. What is important to note 
@@ -54,41 +48,57 @@
       <section>
         <h2>Derivation</h2>
         <p>
-          Benford's law can be derived from scale invariance. Let $p(x)$ denote the probability density for the mantissa $x$ of some number $z = x\cdot 10^k$ with $k \in \mathbb{Z}$ to be in the interval $[1,10]$. Scale invariance for $p(x)$ then means, that the probability $p(x)\,\mathrm{d}x$ of $x \in [x, \mathrm{d}x]$ is equal to the probability $p(\lambda x)\,\mathrm{d}(\lambda x)$ of $\lambda x \in [\lambda x, \mathrm{d}(\lambda x)]$ for the scaled probability density $p(\lambda x)$. From the normalization condition \begin{align}\begin{aligned}\label{eq:normalizationcondition}
-	\int_{1}^{10} p(x)\,\mathrm{d}x =& \int_{1}^{10} p(\lambda x)\,\mathrm{d}(\lambda x) \\ =& \lambda \int_{1}^{10} p(\lambda x)\,\mathrm{d}x \overset{!}{=} 1
-	\end{aligned}\end{align}
-of probability densities, the relation \begin{equation}
-	p(\lambda x) = \lambda^{-1}p(x)
-\end{equation} follows. Differentiation \begin{equation}
-\frac{\mathrm{d}}{\mathrm{d}\lambda} p(\lambda x) = x\frac{\mathrm{d}p(x)}{\mathrm{d}x}, \qquad \frac{\mathrm{d}}{\mathrm{d}\lambda}[\lambda^{-1}p(x)] = -\frac{1}{\lambda^2}p(x)
-\end{equation}
-of both sides of \cref{eq:normalizationcondition} leads to the differential equation \begin{equation}
-	x\frac{\mathrm{d}p(x)}{\mathrm{d}x} = -\frac{1}{\lambda^2}p(x),
-\end{equation} which can be solved by separation of variables. Dividing the differential equation by $x$ and $p(x)$ and furthermore integrating with respect to $x$ leads to \begin{equation}
-\int \frac{1}{p(x)}\frac{\mathrm{d}p(x)}{\mathrm{d}x}\,\mathrm{d}x = \int \frac{1}{p(x)}\,\mathrm{d}p(x) =  -\frac{1}{\lambda^2}\int \frac{1}{x}\,\mathrm{d}x.
-\end{equation} Performing the indefinite integrals, one obtains \begin{equation}
-\ln[p(x)] = -\frac{1}{\lambda^2}\ln(x) + c, \quad c \in \mathbb{R}.
-\end{equation} A this stage, one can set $\lambda =1$ and raise both sides of the equation to the power of Euler's number, which yields \begin{equation}
-p(x) = \tilde{c}\frac{1}{x},
-\end{equation} where $\tilde{c} = e^c$. This constant $\tilde{c}$ is given by the normalization condition $\int_{1}^{10}p(x)\,\mathrm{d}x\overset{!}{=}1$ as \begin{equation}
-\tilde{c}\int_{1}^{10}\frac{1}{x}\,\mathrm{d}x = \tilde{c}\ln(10) = 1 \quad \Leftrightarrow \quad \tilde{c} = \frac{1}{\ln(10)},
-\end{equation} hence the Benford probability density $p(x)$ is given by \begin{equation}
-p(x) = \frac{1}{\ln(10)}x^{-1}.
-\end{equation} The probability $P(d)$ that the first digit of a number $z = x\cdot 10^k$ is the integer $d \in \{1,2,\dots,9\}$ is therefore given by \begin{align}\begin{aligned}
-P(d) &= \int_{d}^{d+1}p(x)\,\mathrm{d}x = \frac{1}{\ln(10)}\int_{d}^{d+1}\frac{1}{x}\,\mathrm{d}x \\ &= \frac{1}{\ln(10)}[\ln(d+1)-\ln(d)] \\ &= \frac{1}{\ln(10)}\ln\left(1+\frac{1}{d}\right).
-\end{aligned}\end{align} Let $a$, $b$ and $c$ be numbers, such that $\log_a(c) = b$ is a well-defined expression. Then, $a^b = c$ holds and hence also $\log_b(a^b) = \log_b(c) = b\log_b(a)$ must hold. From this, the change of basis rule \begin{equation}
-\log_a(c) = \frac{\log_b(c)}{\log_b(a)}
-\end{equation} follows. Using this rule, one obtains $\ln(10)^{-1} = \log(e)$ and $\ln(1+1/d) = \log(1+1/d)/\log(e)$. Thus, the final expression \begin{equation}
-P(d) = \log\left(1 + \frac{1}{d}\right)
-\end{equation} for the Newcomb-Benford law is obtained. A dataset $Z \doteq \{z_1,\dots,z_n\}$ consisting of $n \in \mathbb{N}$ numbers is said to follow a Benford distribution, if \begin{equation}
-\frac{n_{d}}{n} \approx P(d) = \log\left(1+\frac{1}{d}\right)
-\end{equation} for all $d \in \{1,2,\dots,9\}$ holds, where $n_{d}$ is the number of elements in $Z$ with first digit $d \in \{1,2,\dots,9\}$.
-
+          Benford's law can be derived from scale invariance. Let $p(x)$ denote the probability density for the mantissa $x$ of some number $z = x\cdot 10^k$ with $k \in \mathbb{Z}$ to be in the interval $[1,10]$. 
+          Scale invariance for $p(x)$ then means, that the probability $p(x)\,\mathrm{d}x$ of $x \in [x, \mathrm{d}x]$ is 
+          equal to the probability $p(\lambda x)\,\mathrm{d}(\lambda x)$ of $\lambda x \in [\lambda x, \mathrm{d}(\lambda x)]$ for the 
+          scaled probability density $p(\lambda x)$. From the normalization 
+          condition \begin{align}\begin{aligned}\label{eq:normalizationcondition} \int_{1}^{10} p(x)\,\mathrm{d}x =& \int_{1}^{10} 
+          p(\lambda x)\,\mathrm{d}(\lambda x) \\ =& \lambda \int_{1}^{10} p(\lambda x)\,\mathrm{d}x \overset{!}{=} 1 \end{aligned}\end{align} of probability densities, the relation \begin{equation} 
+          p(\lambda x) = \lambda^{-1}p(x) \end{equation} follows. Differentiation \begin{equation} \frac{\mathrm{d}}{\mathrm{d}\lambda} 
+          p(\lambda x) = x\frac{\mathrm{d}p(x)}{\mathrm{d}x}, \qquad \frac{\mathrm{d}}{\mathrm{d}\lambda}[\lambda^{-1}p(x)] = -\frac{1}{\lambda^2}p(x) \end{equation} 
+          of both sides of \cref{eq:normalizationcondition} leads to the differential equation \begin{equation} 
+          x\frac{\mathrm{d}p(x)}{\mathrm{d}x} = -\frac{1}{\lambda^2}p(x), \end{equation} which can be solved by 
+          separation of variables. Dividing the differential equation by $x$ and $p(x)$ and furthermore integrating with 
+          respect to $x$ leads to \begin{equation} \int \frac{1}{p(x)}\frac{\mathrm{d}p(x)}{\mathrm{d}x}\,\mathrm{d}x = 
+          \int \frac{1}{p(x)}\,\mathrm{d}p(x) =  -\frac{1}{\lambda^2}\int \frac{1}{x}\,\mathrm{d}x. \end{equation} Performing the 
+          indefinite integrals, one obtains \begin{equation} \ln[p(x)] = -\frac{1}{\lambda^2}\ln(x) + c, \quad c \in \mathbb{R}. \end{equation} 
+          A this stage, one can set $\lambda =1$ and raise both sides of the equation to the power of Euler's number, which yields \begin{equation} p(x) = \tilde{c}\frac{1}{x}, 
+          \end{equation} where $\tilde{c} = e^c$. This constant $\tilde{c}$ is given by the normalization condition $\int_{1}^{10}p(x)\,\mathrm{d}x\overset{!}{=}1$ as \begin{equation} 
+          \tilde{c}\int_{1}^{10}\frac{1}{x}\,\mathrm{d}x = \tilde{c}\ln(10) = 1 \quad \Leftrightarrow \quad \tilde{c} = \frac{1}{\ln(10)},
+          \end{equation} hence the Benford probability density $p(x)$ is given by \begin{equation}p(x) = \frac{1}{\ln(10)}x^{-1}.
+          \end{equation} The probability $P(d)$ that the first digit of a number $z = x\cdot 10^k$ is the integer $d \in \{1,2,\dots,9\}$ is therefore given by \begin{align}\begin{aligned}
+          P(d) &= \int_{d}^{d+1}p(x)\,\mathrm{d}x = \frac{1}{\ln(10)}\int_{d}^{d+1}\frac{1}{x}\,\mathrm{d}x \\ &= \frac{1}{\ln(10)}[\ln(d+1)-\ln(d)] \\ &= \frac{1}{\ln(10)}\ln\left(1+\frac{1}{d}\right).
+          \end{aligned}\end{align} Let $a$, $b$ and $c$ be numbers, such that $\log_a(c) = b$ is a well-defined expression. Then, $a^b = c$ holds and hence also $\log_b(a^b) = \log_b(c) = b\log_b(a)$ must hold. From this, the change of basis rule \begin{equation}
+          \log_a(c) = \frac{\log_b(c)}{\log_b(a)}\end{equation} follows. Using this rule, 
+          one obtains $\ln(10)^{-1} = \log(e)$ and $\ln(1+1/d) = \log(1+1/d)/\log(e)$. Thus, the final expression \begin{equation}
+          P(d) = \log\left(1 + \frac{1}{d}\right)\end{equation} for the Newcomb-Benford law is obtained. A dataset 
+          $Z \doteq \{z_1,\dots,z_n\}$ consisting of $n \in \mathbb{N}$ numbers is said to follow a Benford distribution, if \begin{equation}
+          \frac{n_{d}}{n} \approx P(d) = \log\left(1+\frac{1}{d}\right)\end{equation} for all $d \in \{1,2,\dots,9\}$ holds, 
+          where $n_{d}$ is the number of elements in $Z$ with first digit $d \in \{1,2,\dots,9\}$.
+        </p>
           Figure 1 shows the calculated values $P(d)$ following Benford's law.
-          <figure>
-            <img src="benford.png" alt="Benford's law" class="figure-img">
-            <figcaption>Figure 1: Calculated values $P(d)$ for Benford's law.</figcaption>
-          </figure>
+        <figure>
+          <img src="benford.png" alt="Benford's law" class="figure-img">
+          <figcaption><strong>Figure 1:</strong> <span class="figcaption-text">Calculated values $P(d)$ for Benford's law.</span></figcaption>
+        </figure>
+      </section>
+
+      <section>
+        <h2>Literature</h2>
+        <p>
+          Newcomb, S. (1881). <em>Note on the frequency of use of the different digits in natural numbers</em>. 
+          American Journal of Mathematics, 4(1), 39–40. Johns Hopkins University Press. 
+          <a href="http://www.jstor.org/stable/2369148" target="_blank" rel="noopener noreferrer">http://www.jstor.org/stable/2369148</a> (accessed May 27, 2025).
+        </p>
+        <p>
+          Benford, F. (1938). <em>The law of anomalous numbers</em>. 
+          Proceedings of the American Philosophical Society, 78(4), 551–572. American Philosophical Society. 
+          <a href="http://www.jstor.org/stable/984802" target="_blank" rel="noopener noreferrer">http://www.jstor.org/stable/984802</a> (accessed May 27, 2025).
+        </p>
+        <p>
+          Burgos, A., et al. (2021). <em>The Newcomb–Benford law: Scale invariance and a simple Markov process based on it</em>. 
+          American Journal of Physics, 89(9), 851–861. 
+          <a href="https://doi.org/10.1119/10.0004957 " target="_blank" rel="noopener noreferrer">https://doi.org/10.1119/10.0004957</a> (accessed May 27, 2025).
         </p>
       </section>
     </article>
