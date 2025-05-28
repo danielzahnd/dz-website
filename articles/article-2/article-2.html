@@ -26,29 +26,32 @@
   </header>
 
   <main>
-    <p class="meta">Posted on May 27, 2025</p>
+    <p class="meta">Posted on May 28, 2025</p>
     <article>
       <section>
         <h2>Abstract</h2>
         <p>
-          The Benford law was actually discovered by Newcomb. He observed that the pages in logarithm 
-          books containing tables for logarithms with number one were much dirtier than the pages with logarithms 
-          of higher numbers. He proposed that the first digit $1$ is much more likely to occur in a dataset spanning 
-          many orders of magnitude than a higher number larger than one. Benford rediscovered this law later 
-          on and formalized it. Only through Theodore Hill, however, the Benford law came to be known by a greater 
-          mathematical community, because he applied Benford's distribution to solve real-world problems.
+          This article is concerned with a heuristic derivation of the Benford law from first principles. It is shown in the paper, that the NBL arises from the requirement of scale invariance alone. Scale invariance means, that the mantissa $x$ of a number from a dataset has the same probability $p(x)\,\mathrm{d}x$ of being in the interval $[x, x + \mathrm{d}x]$, as $\lambda x$ has the probability $p(\lambda x)\,\mathrm{d}(\lambda x)$ of being in the interval $[\lambda x, \lambda x + \mathrm{d}(\lambda x)]$ for $\lambda \in \mathbb{R}$. The possible range for $x$ or $\lambda x$ respectively is the interval $[1,10]$.
         </p>
         <p>
-          Nowadays, Benford's law is used to detect frauds in various kinds of datasets. What is important to note 
-          here is that the law is only applicable to datasets spanning many orders of magnitude. The reason for 
-          this will become more clear with a heuristic derivation given below.
+          The derived NBL is applied to a simulated dataset following the the Benford distribution, aswell as to various datasets of different nature.
         </p>
       </section>
 
       <section>
-        <h2>Derivation</h2>
+        <h2>Introduction</h2>
         <p>
-          Benford's law can be derived from scale invariance. Let $p(x)$ denote the probability density for the mantissa $x$ of some number $z = x\cdot 10^k$ with $k \in \mathbb{Z}$ to be in the interval $[1,10]$. 
+          The Benford law was actually discovered by [Newcomb, 1881]. He observed, that the pages in logarithm books containing tables for logarithms with number one were much dirtier than the pages with logarithms of higher numbers. He proposed that the first digit $1$ is much more likely to occur in a dataset spanning many orders of magnitude than a higher number larger than one. [Benford, 1938] rediscovered this law later on and formalized it. Only through Theodore Hill however, the Benford law came to be known by a greater mathematical community, because he applied Benford's distribution to solve real world problems.
+        </p>
+        <p>
+          Nowadays, Benford's law is used to detect frauds in various kinds of datasets. What is important to note here is that the law is only applicable to datasets spanning many orders of magnitude. The reason for this will become more clear with a heuristic derivation given below.
+        </p>
+      </section>
+
+      <section>
+        <h2>Derivation of the Newcomb-Benford law</h2>
+        <p>
+          Following [Burgos, 2021], Benford's law can be derived from scale invariance. Let $p(x)$ denote the probability density for the mantissa $x$ of some number $z = x\cdot 10^k$ with $k \in \mathbb{Z}$ to be in the interval $[1,10]$. 
           Scale invariance for $p(x)$ then means, that the probability $p(x)\,\mathrm{d}x$ of $x \in [x, x + \mathrm{d}x]$ is 
           equal to the probability $p(\lambda x)\,\mathrm{d}(\lambda x)$ of $\lambda x \in [\lambda x, \lambda x + \mathrm{d}(\lambda x)]$ for the 
           scaled probability density $p(\lambda x)$. From the normalization 
@@ -80,6 +83,31 @@
           <img src="benford.png" alt="Benford's law" class="figure-img">
           <figcaption><strong>Figure 1:</strong> <span class="figcaption-text">Calculated values $P(d)$ for Benford's law.</span></figcaption>
         </figure>
+      </section>
+
+      <section>
+        <h2>Methods</h2>
+          <h3>Generated datasets</h3>
+          <p>
+            This section describes two methods for generating datasets, which should follow a Benford distribution. These methods were implemented and examined as part of this work.
+          </p>
+            <h4>Method 1: Sampling from uniform distributions</h4>
+            <p>
+              A method directly derivational on the premiss of scale invariance is based on sampling from uniform distributions of various intervals.
+              \begin{figure}[h]
+                \centering
+                \includegraphics[width=0.3\textwidth]{figures/uniformscale.pdf}
+                \caption{Dataset construction by sampling from uniform distributions of intervals $[0,a], [0,2a], \dots, [0,\lambda a]$.}
+                \label{fig:uniformscale}
+              \end{figure}
+              This method is illustrated with \cref{fig:uniformscale} and is based on drawing samples 
+              \begin{equation}
+                z_{j} \sim U(0,ka), \quad k \in \{1,\dots,\lambda\}
+              \end{equation}
+              with $j \in \{1,\dots,n\}$ for $n \in \mathbb{N}$ from uniform distributions $U(0,ka)$. The probability that a sample $z_j$ was drawn from the uniform distribution $U(0,ka)$ is herewith assumed to be \begin{equation}
+                P(z_j \sim U[0,ka]) = \frac{1}{k}
+              \end{equation} to account for the overlap of the various uniform distributions. Given such a construction, one would expect that the resulting dataset should follow a Benford distribution, since it is constructed solely on the assumption of scale invariance.
+            </p>
       </section>
 
       <section>
