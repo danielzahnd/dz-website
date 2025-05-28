@@ -94,13 +94,13 @@
             <h4>Method 1: Sampling from uniform distributions</h4>
             <p>
               A method directly derivational on the premiss of scale invariance is based on sampling from uniform distributions of various intervals.
-              \begin{figure}[h]
-                \centering
-                \includegraphics[width=0.3\textwidth]{figures/uniformscale.pdf}
-                \caption{Dataset construction by sampling from uniform distributions of intervals $[0,a], [0,2a], \dots, [0,\lambda a]$.}
-                \label{fig:uniformscale}
-              \end{figure}
-              This method is illustrated with \cref{fig:uniformscale} and is based on drawing samples 
+            </p>
+            <figure>
+              <img src="uniformscale.png" alt="Benford's law" class="figure-img">
+              <figcaption><strong>Figure 2:</strong> <span class="figcaption-text">Dataset construction by sampling from uniform distributions of intervals $[0,a], [0,2a], \dots, [0,\lambda a]$.</span></figcaption>
+            </figure>
+            <p>  
+              This method is illustrated with fig. 2 and is based on drawing samples 
               \begin{equation}
                 z_{j} \sim U(0,ka), \quad k \in \{1,\dots,\lambda\}
               \end{equation}
