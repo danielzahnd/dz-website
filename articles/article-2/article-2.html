@@ -49,8 +49,8 @@
         <h2>Derivation</h2>
         <p>
           Benford's law can be derived from scale invariance. Let $p(x)$ denote the probability density for the mantissa $x$ of some number $z = x\cdot 10^k$ with $k \in \mathbb{Z}$ to be in the interval $[1,10]$. 
-          Scale invariance for $p(x)$ then means, that the probability $p(x)\,\mathrm{d}x$ of $x \in [x, \mathrm{d}x]$ is 
-          equal to the probability $p(\lambda x)\,\mathrm{d}(\lambda x)$ of $\lambda x \in [\lambda x, \mathrm{d}(\lambda x)]$ for the 
+          Scale invariance for $p(x)$ then means, that the probability $p(x)\,\mathrm{d}x$ of $x \in [x, x + \mathrm{d}x]$ is 
+          equal to the probability $p(\lambda x)\,\mathrm{d}(\lambda x)$ of $\lambda x \in [\lambda x, \lambda x + \mathrm{d}(\lambda x)]$ for the 
           scaled probability density $p(\lambda x)$. From the normalization 
           condition \begin{align}\begin{aligned}\label{eq:normalizationcondition} \int_{1}^{10} p(x)\,\mathrm{d}x =& \int_{1}^{10} 
           p(\lambda x)\,\mathrm{d}(\lambda x) \\ =& \lambda \int_{1}^{10} p(\lambda x)\,\mathrm{d}x \overset{!}{=} 1 \end{aligned}\end{align} of probability densities, the relation \begin{equation} 
@@ -74,9 +74,8 @@
           P(d) = \log\left(1 + \frac{1}{d}\right)\end{equation} for the Newcomb-Benford law is obtained. A dataset 
           $Z \doteq \{z_1,\dots,z_n\}$ consisting of $n \in \mathbb{N}$ numbers is said to follow a Benford distribution, if \begin{equation}
           \frac{n_{d}}{n} \approx P(d) = \log\left(1+\frac{1}{d}\right)\end{equation} for all $d \in \{1,2,\dots,9\}$ holds, 
-          where $n_{d}$ is the number of elements in $Z$ with first digit $d \in \{1,2,\dots,9\}$.
+          where $n_{d}$ is the number of elements in $Z$ with first digit $d \in \{1,2,\dots,9\}$. Figure 1 shows the calculated values $P(d)$ following Benford's law.
         </p>
-          Figure 1 shows the calculated values $P(d)$ following Benford's law.
         <figure>
           <img src="benford.png" alt="Benford's law" class="figure-img">
           <figcaption><strong>Figure 1:</strong> <span class="figcaption-text">Calculated values $P(d)$ for Benford's law.</span></figcaption>
