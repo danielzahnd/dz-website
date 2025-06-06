@@ -29,29 +29,38 @@
     <p class="meta">Posted on June 01, 2025</p>
     <article>
       <section>
-        <h2>Abstract</h2>
+        <h2 class="abstract-title">Abstract</h2>
+        <div class="abstract">
+          <p>
+            This article is concerned with a heuristic derivation of the Benford law from first principles. It is shown in the paper, that the NBL arises from the requirement of scale invariance alone. 
+            Scale invariance means, that the mantissa $x$ of a number from a dataset has the same probability $p(x)\,\mathrm{d}x$ of being in the interval $[x, x + \mathrm{d}x]$, as $\lambda x$ has the 
+            probability $p(\lambda x)\,\mathrm{d}(\lambda x)$ of being in the interval $[\lambda x, \lambda x + \mathrm{d}(\lambda x)]$ for $\lambda \in \mathbb{R}$. The possible range for $x$ 
+            or $\lambda x$ respectively is the interval $[1,10]$.
+          </p>
+          <p>
+            The derived NBL is applied to a simulated dataset following the the Benford distribution, aswell as to various datasets of different nature.
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2>1. Introduction</h2>
         <p>
-          This article is concerned with a heuristic derivation of the Benford law from first principles. It is shown in the paper, that the NBL arises from the requirement of scale invariance alone. Scale invariance means, that the mantissa $x$ of a number from a dataset has the same probability $p(x)\,\mathrm{d}x$ of being in the interval $[x, x + \mathrm{d}x]$, as $\lambda x$ has the probability $p(\lambda x)\,\mathrm{d}(\lambda x)$ of being in the interval $[\lambda x, \lambda x + \mathrm{d}(\lambda x)]$ for $\lambda \in \mathbb{R}$. The possible range for $x$ or $\lambda x$ respectively is the interval $[1,10]$.
+          The Benford law was actually discovered by <a href="#newcomb1881"> [Newcomb, 1881]</a>. He observed, that the pages in logarithm books containing tables for logarithms with 
+          number one were much dirtier than the pages with logarithms of higher numbers. He proposed that the first digit $1$ is much more likely to occur 
+          in a dataset spanning many orders of magnitude than a higher number larger than one. <a href="#benford1938"> [Benford, 1938]</a> rediscovered this law later on and formalized it. 
+          Only through Theodore Hill however, the Benford law came to be known by a greater mathematical community, because he applied Benford's distribution to solve real world problems.
         </p>
         <p>
-          The derived NBL is applied to a simulated dataset following the the Benford distribution, aswell as to various datasets of different nature.
+          Nowadays, Benford's law is used to detect frauds in various kinds of datasets. What is important to note here is that the law is only applicable to 
+          datasets spanning many orders of magnitude. The reason for this will become more clear with a heuristic derivation given below.
         </p>
       </section>
 
       <section>
-        <h2>Introduction</h2>
+        <h2>2. Derivation of the Newcomb-Benford law</h2>
         <p>
-          The Benford law was actually discovered by [Newcomb, 1881]. He observed, that the pages in logarithm books containing tables for logarithms with number one were much dirtier than the pages with logarithms of higher numbers. He proposed that the first digit $1$ is much more likely to occur in a dataset spanning many orders of magnitude than a higher number larger than one. [Benford, 1938] rediscovered this law later on and formalized it. Only through Theodore Hill however, the Benford law came to be known by a greater mathematical community, because he applied Benford's distribution to solve real world problems.
-        </p>
-        <p>
-          Nowadays, Benford's law is used to detect frauds in various kinds of datasets. What is important to note here is that the law is only applicable to datasets spanning many orders of magnitude. The reason for this will become more clear with a heuristic derivation given below.
-        </p>
-      </section>
-
-      <section>
-        <h2>Derivation of the Newcomb-Benford law</h2>
-        <p>
-          Following [Burgos, 2021], Benford's law can be derived from scale invariance. Let $p(x)$ denote the probability density for the mantissa $x$ of some number $z = x\cdot 10^k$ with $k \in \mathbb{Z}$ to be in the interval $[1,10]$. 
+          Following <a href="#burgos2021"> [Burgos, 2021]</a>, Benford's law can be derived from scale invariance. Let $p(x)$ denote the probability density for the mantissa $x$ of some number $z = x\cdot 10^k$ with $k \in \mathbb{Z}$ to be in the interval $[1,10]$. 
           Scale invariance for $p(x)$ then means, that the probability $p(x)\,\mathrm{d}x$ of $x \in [x, x + \mathrm{d}x]$ is 
           equal to the probability $p(\lambda x)\,\mathrm{d}(\lambda x)$ of $\lambda x \in [\lambda x, \lambda x + \mathrm{d}(\lambda x)]$ for the 
           scaled probability density $p(\lambda x)$. From the normalization 
@@ -59,7 +68,7 @@
           p(\lambda x)\,\mathrm{d}(\lambda x) \\ =& \lambda \int_{1}^{10} p(\lambda x)\,\mathrm{d}x \overset{!}{=} 1 \end{aligned}\end{align} of probability densities, the relation \begin{equation} 
           p(\lambda x) = \lambda^{-1}p(x) \end{equation} follows. Differentiation \begin{equation} \frac{\mathrm{d}}{\mathrm{d}\lambda} 
           p(\lambda x) = x\frac{\mathrm{d}p(x)}{\mathrm{d}x}, \qquad \frac{\mathrm{d}}{\mathrm{d}\lambda}[\lambda^{-1}p(x)] = -\frac{1}{\lambda^2}p(x) \end{equation} 
-          of both sides of \cref{eq:normalizationcondition} leads to the differential equation \begin{equation} 
+          of both sides of the first equation leads to the differential equation \begin{equation} 
           x\frac{\mathrm{d}p(x)}{\mathrm{d}x} = -\frac{1}{\lambda^2}p(x), \end{equation} which can be solved by 
           separation of variables. Dividing the differential equation by $x$ and $p(x)$ and furthermore integrating with 
           respect to $x$ leads to \begin{equation} \int \frac{1}{p(x)}\frac{\mathrm{d}p(x)}{\mathrm{d}x}\,\mathrm{d}x = 
@@ -71,7 +80,8 @@
           \end{equation} hence the Benford probability density $p(x)$ is given by \begin{equation}p(x) = \frac{1}{\ln(10)}x^{-1}.
           \end{equation} The probability $P(d)$ that the first digit of a number $z = x\cdot 10^k$ is the integer $d \in \{1,2,\dots,9\}$ is therefore given by \begin{align}\begin{aligned}
           P(d) &= \int_{d}^{d+1}p(x)\,\mathrm{d}x = \frac{1}{\ln(10)}\int_{d}^{d+1}\frac{1}{x}\,\mathrm{d}x \\ &= \frac{1}{\ln(10)}[\ln(d+1)-\ln(d)] \\ &= \frac{1}{\ln(10)}\ln\left(1+\frac{1}{d}\right).
-          \end{aligned}\end{align} Let $a$, $b$ and $c$ be numbers, such that $\log_a(c) = b$ is a well-defined expression. Then, $a^b = c$ holds and hence also $\log_b(a^b) = \log_b(c) = b\log_b(a)$ must hold. From this, the change of basis rule \begin{equation}
+          \end{aligned}\end{align} Let $a$, $b$ and $c$ be numbers, such that $\log_a(c) = b$ is a well-defined expression. Then, $a^b = c$ holds and hence also $\log_b(a^b) = \log_b(c) = b\log_b(a)$ must hold. 
+          From this, the change of basis rule \begin{equation}
           \log_a(c) = \frac{\log_b(c)}{\log_b(a)}\end{equation} follows. Using this rule, 
           one obtains $\ln(10)^{-1} = \log(e)$ and $\ln(1+1/d) = \log(1+1/d)/\log(e)$. Thus, the final expression \begin{equation}
           P(d) = \log\left(1 + \frac{1}{d}\right)\end{equation} for the Newcomb-Benford law is obtained. A dataset 
@@ -80,25 +90,25 @@
           where $n_{d}$ is the number of elements in $Z$ with first digit $d \in \{1,2,\dots,9\}$. Figure 1 shows the calculated values $P(d)$ following Benford's law.
         </p>
         <figure>
-          <img src="benford.png" alt="Benford's law" class="figure-img">
+          <img src="benford.svg" alt="Benford's law" class="figure-img_60">
           <figcaption><strong>Figure 1:</strong> <span class="figcaption-text">Calculated values $P(d)$ for Benford's law.</span></figcaption>
         </figure>
       </section>
 
       <section>
-        <h2>Methods</h2>
+        <h2>3. Methods</h2>
 
-          <h3>Generated datasets</h3>
+          <h3>3.1 Generated datasets</h3>
           <p>
             This section describes two methods for generating datasets, which should follow a Benford distribution. These methods were implemented and examined as part of this work.
           </p>
 
-            <h4>Method 1: Sampling from uniform distributions</h4>
+            <h4>3.1.1 Method 1: Sampling from uniform distributions</h4>
             <p>
               A method directly derivational on the premiss of scale invariance is based on sampling from uniform distributions of various intervals.
             </p>
             <figure>
-              <img src="uniformscale.png" alt="Benford's law" class="figure-img">
+              <img src="uniformscale.svg" alt="Benford's law" class="figure-img_40">
               <figcaption><strong>Figure 2:</strong> <span class="figcaption-text">Dataset construction by sampling from uniform distributions of intervals $[0,a], [0,2a], \dots, [0,\lambda a]$.</span></figcaption>
             </figure>
             <p>  
@@ -106,50 +116,190 @@
               \begin{equation}
                 z_{j} \sim U(0,ka), \quad k \in \{1,\dots,\lambda\}
               \end{equation}
-              with $j \in \{1,\dots,n\}$ for $n \in \mathbb{N}$ from uniform distributions $U(0,ka)$. The probability that a sample $z_j$ was drawn from the uniform distribution $U(0,ka)$ is herewith assumed to be \begin{equation}
+              with $j \in \{1,\dots,n\}$ for $n \in \mathbb{N}$ from uniform distributions $U(0,ka)$. The probability that a sample $z_j$ was drawn from the uniform distribution $U(0,ka)$ is herewith assumed to 
+              be \begin{equation}
                 P(z_j \sim U[0,ka]) = \frac{1}{k}
-              \end{equation} to account for the overlap of the various uniform distributions. Given such a construction, one would expect that the resulting dataset should follow a Benford distribution, since it is constructed solely on the assumption of scale invariance.
+              \end{equation} to account for the overlap of the various uniform distributions. Given such a construction, one would expect that the resulting dataset should follow a Benford distribution, since 
+              it is constructed solely on the assumption of scale invariance.
             </p>
 
-            <h4>Method 2: Sampling from a logarithmic uniform distribution</h4>
+            <h4>3.1.2 Method 2: Sampling from a logarithmic uniform distribution</h4>
             <p>
-              There is an instructive way to generate a dataset following a Benford distribution. First of all, one has to recall, to which type of data Benford's law applies. Benford's law applies to data spanning many orders of magnitude, since scale invariance was required for the derivation. Data covering many orders of magnitude is typically processed on a logarithmic scale as shown in \cref{fig:logarithmicscale}. Now, an a priori assumption on a dataset spanning many orders of magnitude would be, that it is uniformly distributed over those magnitudes.
+              There is an instructive way to generate a dataset following a Benford distribution. First of all, one has to recall, to which type of data Benford's law applies. Benford's law applies to data 
+              spanning many orders of magnitude, since scale invariance was required for the derivation. Data covering many orders of magnitude is typically processed on a logarithmic scale as shown 
+              in figure 3. Now, an a priori assumption on a dataset spanning many orders of magnitude would be, that it is uniformly distributed over those magnitudes.
             </p>
             <figure>
-              <img src="logarithmicscale.png" alt="Benford's law" class="figure-img">
+              <img src="logarithmicscale.svg" alt="Benford's law" class="figure-img_70">
               <figcaption><strong>Figure 3:</strong> <span class="figcaption-text">Logarithmic scale with base 10, ranging from $10^{-10}$ to $10^{10}$.</span></figcaption>
             </figure>
             <p>
-              This is to say, that such a dataset can be generated by sampling data from a range $[10^{r^-}, 10^{r^+}]$ on a logarithmic scale. A sample $z_j$ for $j \in \{1,\dots,n\}$ with $n \in \mathbb{N}$ therefore is obtained as \begin{equation}\label{eq:gensamples}
+              This is to say, that such a dataset can be generated by sampling data from a range $[10^{r^-}, 10^{r^+}]$ on a logarithmic scale. A sample $z_j$ for $j \in \{1,\dots,n\}$ with 
+              $n \in \mathbb{N}$ therefore is obtained as \begin{equation}\label{eq:gensamples}
                 z_j = 10^{r_j}, \quad r_j \sim U(r^-,r^+),
               \end{equation} where $U(r^-,r^+)$ denotes the uniform distribution between $r
               ^-$ and $r^+$ for $r^-$, $r^+ \in \mathbb{R}$. For an accordingly generated dataset, $\lim_{n\rightarrow \infty} \frac{n_d}{n} = P(d)$ should hold.
             </p>
           
-          <h3>World population dataset</h3>
+          <h3>3.2 World population dataset</h3>
           <p>
-            The current section describes the Newcomb-Benford law applied to investigate a real-world dataset, namely a dataset of country populations. The used country population dataset\footnote{Data source: World Bank Open Data, \url{https://data.worldbank.org/indicator/SP.POP.TOTL}, last accessed: June 09, 2024.} features population data for all countries on the world ranging from the period of 1970 to the year 2023. In a first step, only the first digits of country populations of one year (2022) were graphed and compared to the exact Newcomb-Benford law, whereas in a second step all data from 1970 to 2023 was used to compare it against the Benford law.
+            The current section describes the Newcomb-Benford law applied to investigate a real-world dataset, namely a dataset of country populations. The used country population 
+            dataset<sup class="footnote-ref" id="footnote-1">1</sup> features population data for 
+            all countries on the world ranging from the period of 1970 to the year 2023. In a first step, only the first digits of country populations of one year (2022) were graphed 
+            and compared to the exact Newcomb-Benford law, whereas in a second step all data from 1970 to 2023 was used to compare it against the Benford law.
           </p>
-
-          <h3>Bible numbers dataset</h3>
+          <ol class="footnote">
+            <li id="footnote-1">
+              Data source: <a href="https://data.worldbank.org/indicator/SP.POP.TOTL"> World Open Data</a>, last accessed: June 09, 2024.
+            </li>
+          </ol>          
+        
+        <h3>3.3 Bible numbers dataset</h3>
           <p>
-            This section elucidates the method of the Newcomb-Benford law applied to a dataset of numbers that appear in the Bible. As a basis, the English American Standard Version (ASV) was used. Text files of this translation can be downloaded freely on the internet from various domains. From a text file containing the entire ASV Bible, chapter and verse numbers were removed, as they are not original to the intitial writings, but were added by translators and typewriters at later stages in time. From the resulting text file, all word- and digit-based numbers were extracted into a dataset containing all numbers mentioned in the Bible. Note, that the acquired dataset does not contain numbers used to reference sequential events, such as the word ``fourth'' in the sentence ``...and it was the fourth day...''.
+            This section elucidates the method of the Newcomb-Benford law applied to a dataset of numbers that appear in the Bible. As a basis, the English American Standard Version (ASV) was used. 
+            Text files of this translation can be downloaded freely on the internet from various domains. From a text file containing the entire ASV Bible, chapter and verse numbers were removed, as 
+            they are not original to the intitial writings, but were added by translators and typewriters at later stages in time. From the resulting text file, all word- and digit-based numbers were 
+            extracted into a dataset containing all numbers mentioned in the Bible. Note, that the acquired dataset does not contain numbers used to reference sequential events, such as the 
+            word ``fourth'' in the sentence ``...and it was the fourth day...''.
           </p>
       </section>
 
       <section>
-        <h2>Literature</h2>
+        <h2>4. Results</h2>
+
+          <h3>4.1 Generated datasets</h3>
+          <p>
+            This section is concerned with presenting the results obtained for the generated datasets. Some key features and interesting properties are pointed out, 
+            which will be discussed in the section below.
+          </p>
+
+            <h4>4.1.1 Method 1: Sampling from uniform distributions</h4>
+            <p>
+              In figure 4, the results obtained for method 1 of dataset generation are presented, 
+              namely those for the sampling from uniform distributions of various intervals. One can see, that for digits 
+              $d \in \{1,2,3\}$, the generated dataset seems to have a lower probability of occurrence than the Benford law would predict. 
+              However, for digits 4 to 9, the opposite is true; the predicted probabilities as predicted by the NBL are lower in this case than those present in the generated dataset.
+            </p>
+            <figure>
+              <img src="gen_method_1.svg" alt="Benford's law" class="figure-img_50">
+              <figcaption><strong>Figure 4:</strong> <span class="figcaption-text">Comparison of the exact Newcomb-Benford law with a generated dataset according to method 1.</span></figcaption>
+            </figure>
+
+            <h4>4.1.2 Method 2: Sampling from a logarithmic uniform distribution</h4>
+            <p>
+              The visualization figure 5 features a histogram showing the distribution of first digits $d$ in the generated dataset according to method 2; 
+              namely sampling from a logarithmic uniform distribution. As compared to method 1, this second method provides results even more coherent with 
+              the exact Newcomb-Benford law. For all first digits $d \in \{1,\dots,9\}$, the generated dataset seems to follow a Benford distribution very well.
+            </p>
+            <figure>
+              <img src="gen_method_2.svg" alt="Benford's law" class="figure-img_50">
+              <figcaption><strong>Figure 5:</strong> <span class="figcaption-text">Comparison of the exact Newcomb-Benford law with the world population dataset for country populations of the year 2022.</span></figcaption>
+            </figure>
+          
+          <h3>4.2 World population dataset</h3>
+          <p>
+            The world population data as obtained for only one year seems to only follow a Benford distribution roughly, as figure 6 indicates. However, if data of all years present 
+            in the used dataset are taken into account, a different picture emerges: The world populations from years 1960 to 2023 seem follow a Benford 
+            distribution quite well, as figure 7 shows.
+          </p>
+          <figure>
+            <img src="pop_2022.svg" alt="Benford's law" class="figure-img_50">
+            <figcaption><strong>Figure 6:</strong> <span class="figcaption-text">Dataset construction by sampling from uniform distributions of intervals $[0,a], [0,2a], \dots, [0,\lambda a]$.</span></figcaption>
+          </figure>
+          <p>
+            The numbers in the world population data for only one year are shown to span a range of 5.8 orders of magnitude, 
+            with the highest number being 7950946801 and 
+            the lowest 11312. For the dataset containing the populations of all considered years, the numbers span a range 
+            of 6.5 orders of magnitude, with highest number 7950946801 and lowest being 2646.
+          </p>
+          <figure>
+            <img src="pop_1960_2023.svg" alt="Benford's law" class="figure-img_50">
+            <figcaption><strong>Figure 7:</strong> <span class="figcaption-text">Comparison of the exact Newcomb-Benford law with the world population dataset for country populations from 1960 to 2023.</span></figcaption>
+          </figure>
+
+          <h3>4.3 Bible numbers dataset</h3>
+          <p>
+            The first digits of numbers extracted from the Bible follow a distribution as seen in figure 8. With respect to the NBL, there is an excess of numbers with first digits 1 and 2, 
+            but a shortage of numbers with first digits 3 to 9. The dataset of Bible numbers seems to not match a Benford distribution very well; however, it is observed to 
+            follow the general trend predicted by Benford's law, that there should be less numbers with high first digits in a dataset following the Benford distribution. 
+            For the first digit 7, there is a spike to be observed in the probability $P(d=7)$ relative to $P(d=6)$ and $P(d=8)$.
+          </p>
+          <p>
+            The dataset of Bible numbers is shown to feature a range of 5.9 orders of magnitude, with highest number 800000 and lowest number 0.
+          </p>
+          <figure>
+            <img src="bible_numbers.svg" alt="Benford's law" class="figure-img_50">
+            <figcaption><strong>Figure 8:</strong> <span class="figcaption-text">Comparison of the exact Newcomb-Benford law with the dataset containing all numbers from the ASV Bible translation. 
+              Note, that numbers refferring to sequential entities such as ``fourth'' in a sentence like ``..it was the fourth...'' are not contained in the dataset.</span></figcaption>
+          </figure>
+      </section>
+
+      <section>
+        <h2>5. Discussion</h2>
         <p>
+          With respect to the two presented methods for generation of Benford distributed datasets one can say, that both methods seem to indeed produce datasets following a 
+          Benford distribution. Method 2 hereby provides better agreement with the exact NBL than method 1 does. Likely this could be explained by mathematically showing that 
+          the sampling method provides faster convergence to a Benford distributed dataset than method 1. One can propose the conjecture that in the limit $n \rightarrow \infty$ 
+          for $n$ the amount of datapoints both methods will lead to exact Benford distribution; this presumption is substantiated by the presented results.
+        </p>
+        <p>
+          The application of the NBL to real-world data such as the world country populations provides insightful results. It is to be expected from the theory of Benford 
+          distributions, that a dataset complying with the requirements of a Benford distribution will approach an exact Benford distribution with increasing size of the dataset. 
+          As the world populations dataset matches the Benford distribution requirements, this is indeed what can be seen in the results.
+        </p>
+        <p>
+          As for the second application of the NBL to real-world data, namely to the Bible numbers, the used dataset proves to not follow a Benford distribution very well. 
+          However, the dataset follows the trend as given by the NBL. The observed discrepancies between the probabilities $P(d)$ of first digits $d$ in the Bible numbers 
+          dataset and the NBL is likely explained by the presumption, that the dataset does not fulfill the requirements to follow a Benford distribution.
+        </p>
+        <p>
+          In order for a dataset to follow a Benford distribution, it must contain numbers spanning many orders of magnitude. Over a logarithmic scale of the span of 
+          numbers, the numbers in the dataset should furthermore be uniformly distributed. The Bible numbers dataset spans a range of 5.9 orders of magnitude, which is 
+          comparable to the dataset of world country populations for one year. However, in the case of the Bible numbers dataset, this span may not be enough. In addition 
+          to this, it is not clear if the dataset matches the requirement, that the numbers must be generated by natural processes. Many numbers in the Bible are the product 
+          of concious agents such as humans or divine beings. It is hence debatable, if the numbers in the Bible are generated by a purely ``natural'' process.
+        </p>
+        <p>
+          The peculiar spike for the first digit $d=7$ could be explained by the observation, that the number 7 is special in the Bible: It is the number many theologians 
+          believe to be the number of perfection, as God is reported to have instantiated many things that quantify with the number 7.
+        </p>
+      </section>
+      
+      <section>
+        <h2>6. Conclusions</h2>
+        <p>
+          It was shown in this paper, that there are instructive ways to generate a Benford distributed dataset based only on the assumption of scale invariance. The generated test datasets according to both proposed methods showed a nearly Benford distributed behaviour.
+        </p>
+        <p>
+          In addition to this, the NBL was successfully applied to a dataset containing world country population numbers. Since this is a dataset spanning many orders of 
+          magnitude and because the dataset has natural processes, namely reproduction and migration, at its base, the set is expected to follow a Benford distribution. 
+          Indeed, this could be shown in the work at hand.
+        </p>
+        <p>
+          Furthermore, the NBL was also applied to a somewhat exotic dataset, namely a dataset containing all numbers - except verse and chapter numbers - in the Bible. 
+          Since the dataset does not sufficiently fulfill the requirements to a Benford distributed dataset, it does only follow Benford's law to a very coarse approximation. 
+          However, the general trend as predicted by the NBL is followed by the dataset, which gives some evidence for the authenticity of the reported numbers in the Bible. 
+          That is, if the numbers in the Bible were wholly made up, one would expect to see no correlation between the NBL and te dataset.
+        </p>
+        <p>
+          In conclusion, Benford's law provides an instructive and most interesting tool to detect, if a dataset spanning many orders of magnitude is of natural origin; that is 
+          to say, if natural processes have led to the resulting distribution of first digits in the dataset.
+        </p>
+      </section>
+      
+      <section>
+        <h2>Literature</h2>
+        <p id="newcomb1881">
           Newcomb, S. (1881). <em>Note on the frequency of use of the different digits in natural numbers</em>. 
           American Journal of Mathematics, 4(1), 39–40. Johns Hopkins University Press. 
           <a href="http://www.jstor.org/stable/2369148" target="_blank" rel="noopener noreferrer">http://www.jstor.org/stable/2369148</a> (accessed May 27, 2025).
         </p>
-        <p>
+        <p id="benford1938">
           Benford, F. (1938). <em>The law of anomalous numbers</em>. 
           Proceedings of the American Philosophical Society, 78(4), 551–572. American Philosophical Society. 
           <a href="http://www.jstor.org/stable/984802" target="_blank" rel="noopener noreferrer">http://www.jstor.org/stable/984802</a> (accessed May 27, 2025).
         </p>
-        <p>
+        <p id="burgos2021">
           Burgos, A., et al. (2021). <em>The Newcomb–Benford law: Scale invariance and a simple Markov process based on it</em>. 
           American Journal of Physics, 89(9), 851–861. 
           <a href="https://doi.org/10.1119/10.0004957 " target="_blank" rel="noopener noreferrer">https://doi.org/10.1119/10.0004957</a> (accessed May 27, 2025).
